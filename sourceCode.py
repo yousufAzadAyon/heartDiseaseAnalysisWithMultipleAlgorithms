@@ -21,7 +21,6 @@ from sklearn.svm import SVC
 df=pd.read_csv('heart.csv')
 df.head(5)
 
-
 #%%
 df.describe()
 
@@ -40,20 +39,9 @@ plt.show()
 sns.distplot(df['age'],rug=True)
 plt.show()
 
-#%%
-min_age=min(df.age)
-max_age=max(df.age)
-mean_age=df.age.mean()
-
-#%%
-sns.barplot(x=df.age.value_counts()[:10].index,y=df.age.value_counts()[:10].values)
-plt.xlabel('Age')
-plt.ylabel('Age Counter')
-plt.show()
 
 #%%
 df.sex.value_counts()
-
 
 #%%
 sns.countplot(x='sex', data=df)
@@ -62,7 +50,6 @@ plt.show()
 
 #%%
 plt.figure(num=None, figsize=(7, 4))
-
 
 sns.barplot(y='thalach', x='target',hue='sex', data=df)
 plt.show()
@@ -74,7 +61,6 @@ plt.xticks(rotation=0)
 plt.legend(["Haven't Disease", "Have Disease"])
 plt.ylabel('Frequency')
 plt.show()
-
 
 
 #%%
@@ -96,8 +82,8 @@ plt.ylabel('Counter')
 plt.show()
 
 #%%
-chest_pain=pd.get_dummies(df['cp'],prefix='cp',drop_first=True)
-df=pd.concat([df,chest_pain],axis=1)
+chestPain=pd.get_dummies(df['cp'],prefix='cp',drop_first=True)
+df=pd.concat([df,chestPain],axis=1)
 df.drop(['cp'],axis=1,inplace=True)
 sp=pd.get_dummies(df['slope'],prefix='slope')
 th=pd.get_dummies(df['thal'],prefix='thal')
@@ -124,66 +110,65 @@ X_test=sc_X.transform(X_test)
 
 #%%
 #LogisticRegression
-lr_c=LogisticRegression(random_state=0)
-lr_c.fit(X_train,y_train)
-lr_pred=lr_c.predict(X_test)
-lr_ac=accuracy_score(y_test, lr_pred)
+logiReg=LogisticRegression(random_state=0)
+logiReg.fit(X_train,y_train)
+logiRegPred=logiReg.predict(X_test)
+logiRegAcu=accuracy_score(y_test, logiRegPred)
 
 #SVM classifier
-svc_c=SVC(kernel='linear',random_state=0)
-svc_c.fit(X_train,y_train)
-svc_pred=svc_c.predict(X_test)
-sv_ac=accuracy_score(y_test, svc_pred)
+svc=SVC(kernel='linear',random_state=0)
+svc.fit(X_train,y_train)
+svcPred=svc.predict(X_test)
+svcAcu=accuracy_score(y_test, svcPred)
 
 #Bayes
-gaussian=GaussianNB()
-gaussian.fit(X_train,y_train)
-bayes_pred=gaussian.predict(X_test)
-bayes_ac=accuracy_score(bayes_pred,y_test)
+bayes=GaussianNB()
+bayes.fit(X_train,y_train)
+bayesPred=bayes.predict(X_test)
+bayesAcu=accuracy_score(bayesPred,y_test)
 
 #SVM regressor
-svc_r=SVC(kernel='rbf')
-svc_r.fit(X_train,y_train)
-svr_pred=svc_r.predict(X_test)
-svr_ac=accuracy_score(y_test, svr_pred)
+svcReg=SVC(kernel='rbf')
+svcReg.fit(X_train,y_train)
+svcRedPred=svcReg.predict(X_test)
+svcRedAcu=accuracy_score(y_test, svcRedPred)
 
 #RandomForest
-rdf_c=RandomForestClassifier(n_estimators=10,criterion='entropy',random_state=0)
-rdf_c.fit(X_train,y_train)
-rdf_pred=rdf_c.predict(X_test)
-rdf_ac=accuracy_score(rdf_pred,y_test)
+randomForest=RandomForestClassifier(n_estimators=10,criterion='entropy',random_state=0)
+randomForest.fit(X_train,y_train)
+randomForestPred=randomForest.predict(X_test)
+randomForestAcu=accuracy_score(randomForestPred,y_test)
 
 # DecisionTree Classifier
-dtree_c=DecisionTreeClassifier(criterion='entropy',random_state=0)
-dtree_c.fit(X_train,y_train)
-dtree_pred=dtree_c.predict(X_test)
-dtree_ac=accuracy_score(dtree_pred,y_test)
+dTree=DecisionTreeClassifier(criterion='entropy',random_state=0)
+dTree.fit(X_train,y_train)
+dTreePred=dTree.predict(X_test)
+dTreeAcu=accuracy_score(dTreePred,y_test)
 
 #KNN
 knn=KNeighborsClassifier(n_neighbors=2)
 knn.fit(X_train,y_train)
-knn_pred=knn.predict(X_test)
-knn_ac=accuracy_score(knn_pred,y_test)
+knnPred=knn.predict(X_test)
+knnAcu=accuracy_score(knnPred,y_test)
 
 #%%
 
+#%%
+print('LogisticRegression_accuracy:\t',logiRegAcu)
+print('SVM_regressor_accuracy:\t\t',svcRedAcu)
+print('RandomForest_accuracy:\t\t',randomForestAcu)
+print('DecisionTree_accuracy:\t\t',dTreeAcu)
+print('KNN_accuracy:\t\t\t',knnAcu)
+print('SVM_classifier_accuracy:\t',svcAcu)
+print('Bayes_accuracy:\t\t\t',bayesAcu)
 
 #%%
-print('LogisticRegression_accuracy:\t',lr_ac)
-print('SVM_regressor_accuracy:\t\t',svr_ac)
-print('RandomForest_accuracy:\t\t',rdf_ac)
-print('DecisionTree_accuracy:\t\t',dtree_ac)
-print('KNN_accuracy:\t\t\t',knn_ac)
-print('SVM_classifier_accuracy:\t',sv_ac)
-print('Bayes_accuracy:\t\t\t',bayes_ac)
-
-
-#%%
-model_accuracy = pd.Series(data=[lr_ac,sv_ac,bayes_ac,svr_ac,rdf_ac,dtree_ac,knn_ac], 
-                index=['LogisticRegression','SVM_classifier','Bayes','SVM_regressor',
-                                      'RandomForest','DecisionTree_Classifier','KNN'])
+model_accuracy = pd.Series(data=[logiRegAcu,svcAcu,bayesAcu,svcRedAcu,randomForestAcu,dTreeAcu,knnAcu], 
+index=['LogisticRegression','SVM_classifier','Bayes','SVM_regressor',
+'RandomForest','DecisionTree_Classifier','KNN'])
 fig= plt.figure(figsize=(10,7))
 model_accuracy.sort_values().plot.barh()
 plt.title('Model Accracy')
 
 #%%
+
