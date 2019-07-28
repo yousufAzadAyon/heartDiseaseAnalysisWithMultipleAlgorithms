@@ -29,7 +29,6 @@ df.describe()
 plt.figure(figsize=(10,10))
 sns.heatmap(df.corr(),annot=True,fmt='.1f')
 plt.show()
-
 #%%
 df.target.value_counts()
 
@@ -128,49 +127,42 @@ X_test=sc_X.transform(X_test)
 lr_c=LogisticRegression(random_state=0)
 lr_c.fit(X_train,y_train)
 lr_pred=lr_c.predict(X_test)
-lr_cm=confusion_matrix(y_test,lr_pred)
 lr_ac=accuracy_score(y_test, lr_pred)
 
 #SVM classifier
 svc_c=SVC(kernel='linear',random_state=0)
 svc_c.fit(X_train,y_train)
 svc_pred=svc_c.predict(X_test)
-sv_cm=confusion_matrix(y_test,svc_pred)
 sv_ac=accuracy_score(y_test, svc_pred)
 
 #Bayes
 gaussian=GaussianNB()
 gaussian.fit(X_train,y_train)
 bayes_pred=gaussian.predict(X_test)
-bayes_cm=confusion_matrix(y_test,bayes_pred)
 bayes_ac=accuracy_score(bayes_pred,y_test)
 
 #SVM regressor
 svc_r=SVC(kernel='rbf')
 svc_r.fit(X_train,y_train)
 svr_pred=svc_r.predict(X_test)
-svr_cm=confusion_matrix(y_test,svr_pred)
 svr_ac=accuracy_score(y_test, svr_pred)
 
 #RandomForest
 rdf_c=RandomForestClassifier(n_estimators=10,criterion='entropy',random_state=0)
 rdf_c.fit(X_train,y_train)
 rdf_pred=rdf_c.predict(X_test)
-rdf_cm=confusion_matrix(y_test,rdf_pred)
 rdf_ac=accuracy_score(rdf_pred,y_test)
 
 # DecisionTree Classifier
 dtree_c=DecisionTreeClassifier(criterion='entropy',random_state=0)
 dtree_c.fit(X_train,y_train)
 dtree_pred=dtree_c.predict(X_test)
-dtree_cm=confusion_matrix(y_test,dtree_pred)
 dtree_ac=accuracy_score(dtree_pred,y_test)
 
 #KNN
 knn=KNeighborsClassifier(n_neighbors=2)
 knn.fit(X_train,y_train)
 knn_pred=knn.predict(X_test)
-knn_cm=confusion_matrix(y_test,knn_pred)
 knn_ac=accuracy_score(knn_pred,y_test)
 
 #%%
