@@ -5,24 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import average_precision_score
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import precision_recall_curve
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import roc_curve
-from sklearn.metrics import f1_score
-from sklearn.metrics import auc
 from sklearn.svm import SVC
 #%%
 df=pd.read_csv('heart.csv')
 df.head(5)
-
-#%%
-df.describe()
 
 #%%
 plt.figure(figsize=(10,10))
