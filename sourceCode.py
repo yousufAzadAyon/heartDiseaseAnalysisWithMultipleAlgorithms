@@ -55,7 +55,7 @@ sns.barplot(y='thalach', x='target',hue='sex', data=df)
 plt.show()
 
 #%%
-pd.crosstab(df.sex,df.target).plot(kind="bar",figsize=(10,5),color=['#1CA53B','#AA1111' ])
+pd.crosstab(df.sex,df.target).plot(kind="bar",figsize=(10,5),color=['#66bb6a','#26a69a' ])
 plt.xlabel('Sex (0 = Female, 1 = Male)')
 plt.xticks(rotation=0)
 plt.legend(["Haven't Disease", "Have Disease"])
@@ -69,7 +69,7 @@ plt.xlabel('Chest Pain Type')
 plt.show()
 
 #%%
-pd.crosstab(df.cp,df.target).plot(kind="bar",figsize=(10,5),color=['#11A5AA','#AA1190' ])
+pd.crosstab(df.cp,df.target).plot(kind="bar",figsize=(10,5),color=['#66bb6a','#26a69a' ])
 plt.xlabel('Chest Pain Type')
 plt.xticks(rotation = 0)
 plt.ylabel('Frequency of Disease or Not')
@@ -154,20 +154,20 @@ knnAcu=accuracy_score(knnPred,y_test)
 #%%
 
 #%%
-print('LogisticRegression_accuracy:\t',logiRegAcu)
-print('SVM_regressor_accuracy:\t\t',svcRedAcu)
-print('RandomForest_accuracy:\t\t',randomForestAcu)
-print('DecisionTree_accuracy:\t\t',dTreeAcu)
-print('KNN_accuracy:\t\t\t',knnAcu)
-print('SVM_classifier_accuracy:\t',svcAcu)
-print('Bayes_accuracy:\t\t\t',bayesAcu)
+print('LogisticRegression Accuracy:\t',logiRegAcu)
+print('SVM Regressor Accuracy:\t\t',svcRedAcu)
+print('RandomForest Accuracy:\t\t',randomForestAcu)
+print('DecisionTree Accuracy:\t\t',dTreeAcu)
+print('KNN Accuracy:\t\t\t',knnAcu)
+print('SVM Classifier Accuracy:\t',svcAcu)
+print('Bayes Accuracy:\t\t\t',bayesAcu)
 
 #%%
-model_accuracy = pd.Series(data=[logiRegAcu,svcAcu,bayesAcu,svcRedAcu,randomForestAcu,dTreeAcu,knnAcu], 
-index=['LogisticRegression','SVM_classifier','Bayes','SVM_regressor',
-'RandomForest','DecisionTree_Classifier','KNN'])
+modelAccuracy = pd.Series(data=[logiRegAcu,svcAcu,bayesAcu,svcRedAcu,randomForestAcu,dTreeAcu,knnAcu], 
+index=['LogisticRegression','SVM Classifier','Bayes','SVM Regressor',
+'RandomForest','DecisionTree Classifier','KNN'])
 fig= plt.figure(figsize=(10,7))
-model_accuracy.sort_values().plot.barh()
+modelAccuracy.sort_values().plot.barh()
 plt.title('Model Accracy')
 
 #%%
